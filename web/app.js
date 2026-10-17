@@ -3,7 +3,7 @@ import { planDay, stretchPick, weatherCtx } from "./planner.js";
 // ---- Config (edit after deploying the Worker) -------------------------------
 const CONFIG = {
   workerUrl: "",          // e.g. https://weekend-worker.<you>.workers.dev
-    // The Worker token is NOT stored here. Paste it once in the Add tab (kept on your phone only).
+  // The Worker token is NOT stored here. Paste it once in the Add tab (kept on your phone only).
   lat: 13.0827, lon: 80.2707, // Chennai
 };
 
@@ -128,7 +128,17 @@ function nextUnswiped() {
 
 function renderLibrary() {
   const p = nextUnswiped();
-  if (!p) { $("#view").innerHTML = `<div class="empty">${t("libEmpty")}</div>`; return; }
+  if (!p) {
+    const rows = places.map((pl) => `<div class="card"><h3>${esc(pl.name)}</h3>
+      <div class="meta">${t(state.status[pl.id])}</div>
+      <div class="actions"><button data-undo="${esc(pl.id)}">Undo</button></div></div>`).join("");
+    $("#view").innerHTML = `<div class="empty">${t("libEmpty")}</div>${rows}
+      <div class="actions"><button class="btn" id="reset">Reset all swipes</button></div>`;
+    document.querySelectorAll("[data-undo]").forEach((b) =>
+      b.addEventListener("click", () => undoSwipe(places.find((x) => x.id === b.dataset.undo))));
+    $("#reset").addEventListener("click", resetSwipes);
+    return;
+  }
   $("#view").innerHTML = `${pickCard(p)}
     <div class="actions">
       <button class="skip" data-s="skip">${t("skip")}</button>
@@ -139,10 +149,28 @@ function renderLibrary() {
     b.addEventListener("click", () => swipe(p, b.dataset.s)));
 }
 
+const DELTA = { want: 0.3, skip: -0.3, been: 0.1 }; // taste weights learn from swipes
+
+function undoSwipe(p) {
+  const s = state.status[p.id];
+  if (!s) return;
+  for (const tag of p.tags) state.weights[tag] = (state.weights[tag] ?? 0) - DELTA[s];
+  delete state.status[p.id];
+  store.set("state", state);
+  syncTaste();
+  renderLibrary();
+}
+
+function resetSwipes() {
+  state = { status: {}, weights: {} };
+  store.set("state", state);
+  syncTaste();
+  renderLibrary();
+}
+
 function swipe(p, s) {
   state.status[p.id] = s;
-  const delta = s === "want" ? 0.3 : s === "skip" ? -0.3 : 0.1; // taste weights learn from swipes
-  for (const tag of p.tags) state.weights[tag] = (state.weights[tag] ?? 0) + delta;
+  for (const tag of p.tags) state.weights[tag] = (state.weights[tag] ?? 0) + DELTA[s];
   store.set("state", state);
   syncTaste();
   renderLibrary();
