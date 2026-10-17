@@ -4,14 +4,14 @@ compatibility_date = "2026-01-01"
 
 [vars]
 # Set to your Pages origin, e.g. https://<user>.github.io
-ALLOWED_ORIGIN = "*"
+ALLOWED_ORIGIN = "https://sairam-m.github.io"
 OPENAI_MODEL = "gpt-4o-mini"
 EXTRACT_MONTHLY_CAP = "100"
 
 # Create with: npx wrangler kv namespace create STORE   then paste the id below
 [[kv_namespaces]]
 binding = "STORE"
-id = "REPLACE_WITH_KV_ID"
+id = "54143f27202343bfb964237881dd4572"
 
 # Secrets (not stored here):
 #   npx wrangler secret put OPENAI_API_KEY
