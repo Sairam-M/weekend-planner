@@ -22,6 +22,20 @@ wait for something good, so the app surfaces picks proactively and always has a 
 - Do not scrape Instagram or booking sites. Official APIs, search results and link-outs only.
 - Plain code does filtering, scoring, clustering. AI only reads articles/screenshots and writes blurbs.
 
+## Two entity types (keep them separate)
+- **Place**: evergreen, visit any time (`web/data/places.json`). Has hours/open days, noise, crowd, tags. Swiped
+  been/want/skip. Planned by scoring. Never expires.
+- **Event**: one-off, happens on a specific date and time (saved on the phone from screenshots). Fields: `id, title,
+  date (YYYY-MM-DD), time (HH:MM), venue, price, notes, hasImage`. Events are fixed anchors: they appear in that
+  day's plan at their time, places are planned around them (clash check), upcoming ones show under "Coming up",
+  past ones move to "Past events", and events with no date sit under "Needs a date".
+- A screenshot is not always an event. On Save, the user picks **Event** (has a date) or **Place** (any time). The
+  vision model's result pre-selects it: a date means event, no date means place. A place saved this way is a
+  "saved by you" place (`user: true`): neutral defaults for noise/crowd/hours, an "indoor or covered" checkbox
+  for the rain filter, marked "want", lifted in scoring, and never used as the stretch pick.
+- Screenshot copies are stored on the phone in IndexedDB (compressed to about 1280px), not in the repo.
+  Saved events and saved places live in the phone's browser storage only (not backed up).
+
 ## Architecture
 - `web/`: static PWA on GitHub Pages (this week view, swipe library, add-from-screenshot, share target, service worker).
 - `worker/`: Cloudflare Worker. `/extract` (OpenAI vision proxy with monthly cap) and `/taste` (KV store for swipes).
@@ -43,7 +57,7 @@ wait for something good, so the app surfaces picks proactively and always has a 
 ## Status
 - Done: scaffold of PWA, planner (client-side), swipe library, share target, Worker, scripts, workflows.
 - Not done: Places keys and library enrichment, Web Push, taste sync from phone to Worker, events, overnight trips,
-  Tamil strings review, design polish.
+  design polish. (The Tamil/English UI switch was removed on purpose: not useful.)
 - All hours/prices in `web/data/places.json` are unverified seed data.
 
 ## Next steps

@@ -1,7 +1,7 @@
 // Service worker: offline shell + Web Share Target (screenshots) + push.
-const CACHE = "wp-shell-v2"; // bump this whenever you want to force old caches to be dropped
+const CACHE = "wp-shell-v3"; // bump this whenever you want to force old caches to be dropped
 const SHELL = [
-  "./", "./index.html", "./styles.css", "./app.js", "./planner.js",
+  "./", "./index.html", "./styles.css", "./app.js", "./planner.js", "./config.js",
   "./manifest.webmanifest", "./data/places.json", "./icons/icon-192.png",
 ];
 

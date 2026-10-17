@@ -29,12 +29,21 @@ npx wrangler secret put OPENAI_API_KEY
 npx wrangler secret put APP_TOKEN           # any long random string
 npx wrangler deploy
 ```
-Then set `workerUrl` and `workerToken` in `CONFIG` at the top of `web/app.js`.
+Then set `workerUrl` in `web/config.js` (a URL is not a secret). Settings live in `config.js`, so replacing
+`app.js` never wipes them. After any change to `worker/src/index.js`, run `npx wrangler deploy` again.
+Open the app > Add tab > Settings, paste the same `APP_TOKEN` once, and save. It lives only in that phone's storage.
 Set a hard monthly spend limit on your OpenAI account. The Worker also stops after `EXTRACT_MONTHLY_CAP` calls.
 
-Note: a token in a public repo's JS is visible to anyone. For one user this is a low risk because the Worker caps
-usage, but do not reuse the token anywhere else. A later improvement is an in-app settings field that keeps it in
-localStorage instead of the source.
+## Where secrets live (nothing secret goes in the repo)
+| Secret | Lives in |
+|---|---|
+| OpenAI key | Worker secret (`wrangler secret put`) |
+| Worker token (`APP_TOKEN`) | Worker secret, plus pasted once into the app on your phone |
+| Google Places key | GitHub repo Secrets (used only by Actions) |
+| Local testing values | `.env` or `worker/.dev.vars`, both in `.gitignore` |
+
+A `.env` file only helps code that runs on a server or in Actions. Anything the browser needs is visible to anyone
+who opens the page, so the PWA itself must never contain a key.
 
 ### 3. Google Places (library builder)
 1. Google Cloud: create a project, enable **Places API (New)**, create an API key restricted to that API.
@@ -53,5 +62,6 @@ PROJECT.md  shared memory for AI chats
 
 ## What works today vs what is a stub
 Works: weekend view with live weather and rain filter, noise/crowd penalty, stretch pick, swipe library with
-taste-weight updates, Tamil/English toggle, offline shell, share target storing the shared image, manual event card.
+taste-weight updates, offline shell, share target, and saving a shared screenshot as either an event (dated, with
+notes and a stored copy) or a place (any time, joins the planner pool).
 Stub: Places enrichment, Thursday Web Push, LLM blurbs, verifier, taste sync to the Worker, events, overnight trips.
