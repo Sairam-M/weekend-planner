@@ -1,0 +1,64 @@
+:root {
+  --bg: #faf6ef; --card: #ffffff; --ink: #1e2a2a; --muted: #5d6b6a;
+  --brand: #1f5f5b; --accent: #c9602b; --line: #e6dfd2; --warn: #8a5a00; --warnbg: #fff3d6;
+  --rain: #e3eef7;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #141a1a; --card: #1d2626; --ink: #eef3f2; --muted: #9db0ae;
+    --brand: #62b8b1; --accent: #f08a54; --line: #2c3837; --warn: #ffd37a; --warnbg: #3a2f12;
+    --rain: #1b2a38;
+  }
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font: 16px/1.45 system-ui, "Noto Sans Tamil", sans-serif;
+  padding-bottom: 72px;
+}
+.top {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 16px 16px 8px; position: sticky; top: 0; background: var(--bg); z-index: 2;
+}
+h1 { font-size: 1.4rem; margin: 0; }
+h2 { font-size: 1.05rem; margin: 20px 0 8px; }
+main { padding: 0 16px 16px; max-width: 640px; margin: 0 auto; }
+.chip {
+  border: 1px solid var(--line); background: var(--card); color: var(--ink);
+  border-radius: 999px; padding: 6px 14px; font-size: .9rem;
+}
+.banner { background: var(--rain); border-radius: 12px; padding: 12px 14px; margin: 8px 0 4px; }
+.card {
+  background: var(--card); border: 1px solid var(--line); border-radius: 14px;
+  padding: 14px; margin: 10px 0;
+}
+.card h3 { margin: 0 0 2px; font-size: 1.05rem; }
+.meta { color: var(--muted); font-size: .88rem; }
+.verify { background: var(--warnbg); color: var(--warn); border-radius: 8px; padding: 6px 10px; font-size: .84rem; margin-top: 8px; }
+.flags { margin-top: 6px; display: flex; flex-wrap: wrap; gap: 6px; }
+.flag { font-size: .75rem; border: 1px solid var(--line); border-radius: 999px; padding: 2px 8px; color: var(--muted); }
+.time { color: var(--brand); font-weight: 600; font-size: .85rem; text-transform: uppercase; letter-spacing: .04em; }
+a { color: var(--brand); }
+.stretch { border-style: dashed; }
+.actions { display: flex; gap: 10px; margin-top: 14px; }
+.actions button, .btn {
+  flex: 1; padding: 12px; border-radius: 12px; border: 1px solid var(--line);
+  background: var(--card); color: var(--ink); font-size: 1rem;
+}
+.actions .been { color: var(--muted); }
+.actions .want { background: var(--brand); color: #fff; border-color: var(--brand); }
+.actions .skip { color: var(--accent); }
+.btn.primary { background: var(--brand); color: #fff; border-color: var(--brand); }
+.tabs {
+  position: fixed; bottom: 0; left: 0; right: 0; display: flex; background: var(--card);
+  border-top: 1px solid var(--line); padding-bottom: env(safe-area-inset-bottom);
+}
+.tabs button { flex: 1; padding: 14px 4px; border: 0; background: none; color: var(--muted); font-size: .95rem; }
+.tabs button.on { color: var(--brand); font-weight: 700; }
+label { display: block; font-size: .85rem; color: var(--muted); margin: 10px 0 4px; }
+input, textarea {
+  width: 100%; padding: 10px; border-radius: 10px; border: 1px solid var(--line);
+  background: var(--card); color: var(--ink); font: inherit;
+}
+img.shared { width: 100%; border-radius: 12px; margin-bottom: 8px; }
+.empty { color: var(--muted); text-align: center; padding: 32px 0; }

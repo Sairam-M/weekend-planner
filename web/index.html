@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#1f5f5b">
+  <title>Weekend Planner</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon-192.png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <h1 id="title">This weekend</h1>
+    <button id="lang" class="chip" aria-label="Switch language">தமிழ்</button>
+  </header>
+
+  <main id="view"></main>
+
+  <nav class="tabs">
+    <button data-view="weekend" class="on">This weekend</button>
+    <button data-view="library">Library</button>
+    <button data-view="add">Add</button>
+  </nav>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
