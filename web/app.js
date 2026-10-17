@@ -2,7 +2,7 @@ import { planDay, stretchPick, weatherCtx } from "./planner.js";
 
 // ---- Config (edit after deploying the Worker) -------------------------------
 const CONFIG = {
-  workerUrl: "",          // e.g. https://weekend-worker.<you>.workers.dev
+  workerUrl: "https://weekend-worker.weekend-planner.workers.dev",          // e.g. https://weekend-worker.<you>.workers.dev
   // The Worker token is NOT stored here. Paste it once in the Add tab (kept on your phone only).
   lat: 13.0827, lon: 80.2707, // Chennai
 };
