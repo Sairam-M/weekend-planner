@@ -1,5 +1,5 @@
 // Service worker: offline shell + Web Share Target (screenshots) + push.
-const CACHE = "wp-shell-v1";
+const CACHE = "wp-shell-v2"; // bump this whenever you want to force old caches to be dropped
 const SHELL = [
   "./", "./index.html", "./styles.css", "./app.js", "./planner.js",
   "./manifest.webmanifest", "./data/places.json", "./icons/icon-192.png",
@@ -59,8 +59,16 @@ self.addEventListener("fetch", (e) => {
     return;
   }
 
-  // App shell: cache first.
-  e.respondWith(caches.match(e.request).then((r) => r || fetch(e.request)));
+  // App shell: network first (revalidate, so updates show up), cache only as offline fallback.
+  e.respondWith(
+    fetch(e.request, { cache: "no-cache" })
+      .then((r) => {
+        const copy = r.clone();
+        caches.open(CACHE).then((c) => c.put(e.request, copy));
+        return r;
+      })
+      .catch(() => caches.match(e.request))
+  );
 });
 
 self.addEventListener("push", (e) => {
