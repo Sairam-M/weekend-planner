@@ -1,0 +1,30 @@
+{
+  "generated": "2026-10-22",
+  "days": [
+    {
+      "date": "2026-10-24",
+      "weather": {
+        "rain": 86,
+        "temp": 29
+      },
+      "picks": [
+        "museum-of-possibilities",
+        "vivekananda-house",
+        "vinyl-and-brew"
+      ]
+    },
+    {
+      "date": "2026-10-25",
+      "weather": {
+        "rain": 88,
+        "temp": 28
+      },
+      "picks": [
+        "vivekananda-house",
+        "vinyl-and-brew",
+        "rayars-mess"
+      ]
+    }
+  ],
+  "stretch": "kasi-vinayaga-mess"
+}
