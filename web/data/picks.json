@@ -1,28 +1,28 @@
 {
-  "generated": "2026-11-05",
+  "generated": "2026-11-12",
   "days": [
     {
-      "date": "2026-11-07",
+      "date": "2026-11-14",
       "weather": {
-        "rain": 84,
-        "temp": 29
+        "rain": 41,
+        "temp": 31
       },
       "picks": [
         "museum-of-possibilities",
-        "vivekananda-house",
-        "vinyl-and-brew"
+        "valluvar-kottam",
+        "dakshinachitra"
       ]
     },
     {
-      "date": "2026-11-08",
+      "date": "2026-11-15",
       "weather": {
-        "rain": 92,
-        "temp": 29
+        "rain": 17,
+        "temp": 30
       },
       "picks": [
-        "vivekananda-house",
-        "vinyl-and-brew",
-        "rayars-mess"
+        "valluvar-kottam",
+        "dakshinachitra",
+        "vivekananda-house"
       ]
     }
   ],
